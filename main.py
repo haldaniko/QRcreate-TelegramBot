@@ -5,8 +5,10 @@ from dotenv import load_dotenv
 import os
 
 load_dotenv()
-
 ActiveBotToken = os.getenv("BOT_TOKEN")
+if not ActiveBotToken:
+    raise ValueError("No BOT_TOKEN provided in .env file.")
+
 bot = telebot.TeleBot(ActiveBotToken)
 
 
