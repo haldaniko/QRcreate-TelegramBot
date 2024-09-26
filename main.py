@@ -1,13 +1,13 @@
 import telebot
-import config
 import validators
-import os
-from PIL import Image
-import png
 from QRcode import *
+from dotenv import load_dotenv
+import os
 
+load_dotenv()
 
-bot = telebot.TeleBot(config.ActiveBotToken)
+ActiveBotToken = os.getenv("BOT_TOKEN")
+bot = telebot.TeleBot(ActiveBotToken)
 
 
 @bot.message_handler(commands=['start'])
@@ -44,20 +44,6 @@ def photoToLink(message):
         print("Wild Type Error occured! It uses \033[93m", e)
         print('\033[0m')
         pass
-
-
-# @bot.message_handler(content_types=['photo'])
-# def photoToLink(message):
-#     try:
-#         file_info = bot.get_file(message.photo[0].file_id)
-#         downloaded_file = bot.download_file(file_info.file_path)
-#         src = file + message.photo[0].file_id
-#         with open(src, 'wb') as new_file:
-#             new_file.write(downloaded_file)
-#     except TypeError as e:
-#         print("Wild Type Error occured! It uses \033[93m", e)
-#         print('\033[0m')
-#         pass
 
 
 bot.polling(none_stop=True)
